@@ -30,7 +30,7 @@ jailbreak prompts?
 
 ### Adversarial Attack
 
-### Jailbreak
+### Jailbreak 
 
 ### Defense Strategy (optional)
 - spelling check is a unique defense method for textual data as spelling of words/ grammar of sentence are fixed in practical and can be easily detected
