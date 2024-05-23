@@ -61,7 +61,11 @@ jailbreak prompts?
 benign prompts, induce specific behaviors into the generative process under black-box setting.
   - Token Space Projection (TSP), aiming the challenge from large and discrete input token space by projecting prompts into a new embedding space.
   - bridges the continuous word embedding space with the discrete token space
-
+- [Black-Box Prompt Learning for Pre-trained-model](https://arxiv.org/pdf/2302.04237) The model tries to create a black-box method for finding independent prompt that can be added to input sentence, _similar to the concept of triggers (UAT)_. The format is a concatenate of prompt $T$ and input sentence $S$.
+  - As the gradient from predictive model can not be access directly, they use policy gradient estimator to calculate loss
+  - they use pointwise mutual information and ngram structure to construct vocabulary candidate
+- [TrojLLM](https://www.mendeley.com/reference-manager/reader-v2/4d2a4514-80fd-3bfb-8ffb-f0b0c9dddd67/4896ba10-6501-fa99-6ac7-c72830ded736) The method targets on the searching for prompt injection called "troj". troj prompt stays high accuracy for clean input and esay to be attacked by triggered input. The targeted prediction occurs when triggers introduced to troj.
+  - Targeting on the pre-trained model. 
 
 | Title                                                                                         | ref | Category | Comment                                                                                |
 | --------------------------------------------------------------------------------------------- | --- | -------- | -------------------------------------------------------------------------------------- |
