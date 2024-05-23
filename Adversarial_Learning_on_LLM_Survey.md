@@ -45,6 +45,10 @@ prompts $J_i$ to influence the input tokens and thereby maximize the probability
   - jailbreak
   - misleading - performance 
   - triggers - find common weakness of model
+- attacking component
+  - input sentence
+  - prompt
+  - models
 
 ##### Weak points
 - order of sentence
@@ -66,6 +70,8 @@ benign prompts, induce specific behaviors into the generative process under blac
   - they use pointwise mutual information and ngram structure to construct vocabulary candidate
 - [TrojLLM](https://www.mendeley.com/reference-manager/reader-v2/4d2a4514-80fd-3bfb-8ffb-f0b0c9dddd67/4896ba10-6501-fa99-6ac7-c72830ded736) The method targets on the searching for prompt injection called "troj". troj prompt stays high accuracy for clean input and esay to be attacked by triggered input. The targeted prediction occurs when triggers introduced to troj.
   - Targeting on the pre-trained model. 
+  - use reinforcement learning framework to find the troj
+- [Universal Adversarial Triggers for Attacking and Analyzing NLP](https://www.mendeley.com/reference-manager/reader-v2/18a6b7ab-a937-3f01-a2d4-421662ce20d8/53461633-46a2-d3e1-1230-83c0eeb69fc6) 
 
 | Title                                                                                         | ref | Category | Comment                                                                                |
 | --------------------------------------------------------------------------------------------- | --- | -------- | -------------------------------------------------------------------------------------- |
