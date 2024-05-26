@@ -57,6 +57,9 @@ prompts $J_i$ to influence the input tokens and thereby maximize the probability
 - specific examples - typos, substituting words, paraphrasing
 
 #### Details
+- [Universal Adversarial Perturbations](https://www.mendeley.com/reference-manager/reader-v2/055834a3-74f3-3228-9d6d-dc1d0bd31b51/424550e8-253a-9035-798b-0e1c448f1e66) The very begining concept of universaral attack on language model. 
+  - Formulation a classic targeted/untargeted adversarial problem.
+  - use cos distance to project trigger to the nearest embedding
 - [AutoDAN](https://openreview.net/pdf?id=7Jwpw4qKkb) Can we develop an approach that can automatically generate stealthy
 jailbreak prompts?
 - [Jailbreaking Attack against Multimodal Large Language Model](https://arxiv.org/pdf/2402.02309.pdf) Strong modeltransferability reveal a connection between MLLM-jailbreaks and LLM-jailbreaks
@@ -72,6 +75,9 @@ benign prompts, induce specific behaviors into the generative process under blac
   - Targeting on the pre-trained model. 
   - use reinforcement learning framework to find the troj
 - [Universal Adversarial Triggers for Attacking and Analyzing NLP](https://www.mendeley.com/reference-manager/reader-v2/18a6b7ab-a937-3f01-a2d4-421662ce20d8/53461633-46a2-d3e1-1230-83c0eeb69fc6) 
+
+
+|Title|Ref|Accessable Information|Attacking Format|Adversarial Component|
 
 | Title                                                                                         | ref | Category | Comment                                                                                |
 | --------------------------------------------------------------------------------------------- | --- | -------- | -------------------------------------------------------------------------------------- |
