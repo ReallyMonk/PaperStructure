@@ -27,9 +27,12 @@ prompts $J_i$ to influence the input tokens and thereby maximize the probability
 
 #### Adversarial Attack
 
-
-
 #### Jailbreak
+
+
+### Adversarial Traing
+
+
 
 ##### Categories
 - access to information
@@ -75,9 +78,12 @@ benign prompts, induce specific behaviors into the generative process under blac
   - Targeting on the pre-trained model. 
   - use reinforcement learning framework to find the troj
 - [Universal Adversarial Triggers for Attacking and Analyzing NLP](https://www.mendeley.com/reference-manager/reader-v2/18a6b7ab-a937-3f01-a2d4-421662ce20d8/53461633-46a2-d3e1-1230-83c0eeb69fc6) 
-
+- [Real-World Indirect Prompt Injection](https://ui.adsabs.harvard.edu/abs/2023arXiv230212173G/abstract) Author find that by injecting prompts into data likely to be retrieved, we can affect other's systems.
 
 |Title|Ref|Accessable Information|Attacking Format|Adversarial Component|
+|---|---|---|---|---|
+|Universal Adversarial Perturbations||White-box|Token Manipulation|Input Text|
+
 
 | Title                                                                                         | ref | Category | Comment                                                                                |
 | --------------------------------------------------------------------------------------------- | --- | -------- | -------------------------------------------------------------------------------------- |
@@ -99,3 +105,14 @@ harmless outputs. [Robust Prompt Optimization for Defending Language Models Agai
 ### Adversarial Example Game
 - [Adversarial Example Game](https://arxiv.org/pdf/2007.00720)
   - addressing problem: 
+
+### Code Generation: computational and cognitive
+#### Robustness of code
+- Preliminaries
+  - a vector for site code $\mathbf{z}\in\{0,1\}^n$
+  - one hot vector to select token $\mathbf{u}_i\in\{0,1\}^{|\Omega|}$, from vocabulary token space $\Omega$, for each token in $\mathcal{P}$ we have $\mathbf{u}^{n\times|\Omega|}$
+  - $\mathcal{P}$ is original program, $\mathcal{P}'$ perturbed program
+  - $\mathbf{1}^T\mathbf{z}\leq k$ measures the perturbation strength
+- Math formulation
+  - $\mathcal{P}'=(1-\mathbf{z})\cdot\mathcal{P}+\mathbf{z\cdot u}$, where $\mathbf{1}^T\mathbf{z}\leq k,\mathbf{z}\in\{0,1\}^n,\mathbf{1}^T\mathbf{u}_i=1,\mathbf{u}_i\in\{0,1\}^{|\Omega|},\forall_i$
+  - $$\begin{aligned} \text{minimize}&\quad \ell_{attack}((\mathbf{1-z})\cdot\mathcal{P}+\mathbf{z\cdot u};\mathcal{P},\theta)\\ \text{subject}&\quad\mathbf{1}^T\mathbf{z}\leq k,\mathbf{z}\in\{0,1\}^n,\mathbf{1}^T\mathbf{u}_i=1,\mathbf{u}_i\in\{0,1\}^{|\Omega|},\forall_i\end{aligned}$$  
