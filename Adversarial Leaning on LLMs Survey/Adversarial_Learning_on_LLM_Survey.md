@@ -25,11 +25,7 @@ prompts $J_i$ to influence the input tokens and thereby maximize the probability
 ### Black-Box Attacks
 
 
-#### Adversarial Attack
-
-#### Jailbreak
-
-
+#### Adve 
 ### Adversarial Traing
 
 
@@ -99,7 +95,10 @@ benign prompts, induce specific behaviors into the generative process under blac
 harmless outputs. [Robust Prompt Optimization for Defending Language Models Against Jailbreaking Attacks](https://arxiv.org/abs/2401.17263)
 
 ### Evaluation Metric
+- Attack Success Rate (ASR)
+- F1-score 
 - [AttackEval](https://arxiv.org/abs/2401.09002)
+- ROUGE
 
 
 ### Adversarial Example Game
@@ -107,12 +106,47 @@ harmless outputs. [Robust Prompt Optimization for Defending Language Models Agai
   - addressing problem: 
 
 ### Code Generation: computational and cognitive
-#### Robustness of code
+
+- What GenAI can bring to code generation?
+  - bug detection
+  - adversarial code detection
+  - revise the code to increase efficiency
+  - prevent invisible leakage, increase vulnerability
+
+#### Adversarial Program Generation vai First-order Optimization
 - Preliminaries
   - a vector for site code $\mathbf{z}\in\{0,1\}^n$
   - one hot vector to select token $\mathbf{u}_i\in\{0,1\}^{|\Omega|}$, from vocabulary token space $\Omega$, for each token in $\mathcal{P}$ we have $\mathbf{u}^{n\times|\Omega|}$
   - $\mathcal{P}$ is original program, $\mathcal{P}'$ perturbed program
   - $\mathbf{1}^T\mathbf{z}\leq k$ measures the perturbation strength
+  - $\mathbf{1}^T\mathbf{u}_i=1$ means only one perturbation is performed
 - Math formulation
   - $\mathcal{P}'=(1-\mathbf{z})\cdot\mathcal{P}+\mathbf{z\cdot u}$, where $\mathbf{1}^T\mathbf{z}\leq k,\mathbf{z}\in\{0,1\}^n,\mathbf{1}^T\mathbf{u}_i=1,\mathbf{u}_i\in\{0,1\}^{|\Omega|},\forall_i$
-  - $$\begin{aligned} \text{minimize}&\quad \ell_{attack}((\mathbf{1-z})\cdot\mathcal{P}+\mathbf{z\cdot u};\mathcal{P},\theta)\\ \text{subject}&\quad\mathbf{1}^T\mathbf{z}\leq k,\mathbf{z}\in\{0,1\}^n,\mathbf{1}^T\mathbf{u}_i=1,\mathbf{u}_i\in\{0,1\}^{|\Omega|},\forall_i\end{aligned}$$  
+  - $$\begin{aligned} \text{minimize}&\quad \ell_\text{attack}((\mathbf{1-z})\cdot\mathcal{P}+\mathbf{z\cdot u};\mathcal{P},\theta)\\ \text{subject to}&\quad\mathbf{1}^T\mathbf{z}\leq k,\mathbf{z}\in\{0,1\}^n,\mathbf{1}^T\mathbf{u}_i=1,\mathbf{u}_i\in\{0,1\}^{|\Omega|},\forall_i\end{aligned}$$  
+  - _simple denote:_ $\ell_\text{attack}(\mathbf{z},\mathbf{u})=\ell_\text{attack}((\mathbf{1-z})\cdot\mathcal{P}+\mathbf{z\cdot u};\mathcal{P},\theta)$
+
+- **PGD as joint optimization solver**
+  - Decrease on the direction of optimize $\ell_\text{attack}$, which increase the original loss
+  - Project w.r.t the constraints
+  - This can be decomposed into 2 sub-problems w.r.t. $\mathbf{z}$ and $\mathbf{u}_i$
+- **Alternating optimization for fast attack generation**
+  - solve one variable at a time, fix $\mathbf{u}$ when solve for $\mathbf{z}$, fix $\mathbf{z}$ when solving $\mathbf{u}$
+  - for each step we can use PGD
+- **Randomized smoothing to improve generating adv programs**
+  - introduced a random process to improve the smoothness of $\ell_\text{attack}$, so that the next step will not fall into a specific point but randomly inside a ball
+-Order Adversaries
+The formulation of adversaries is to max the loss after introduce the perturbation
+$$\min\limits_{\theta\in\Theta}E_{(x,y)\sim\mathcal{D}}\max_{\|\delta\|_p\leq\varepsilon}\ell(\theta, x+\delta,y)$$
+- **Q1** Does projected gradient ascent truly ﬁnd a local maximum rapidly?
+- **Q2** When we ﬁx the ratio r, do smaller input scales (implying smaller ε) help optimization of adversarial training?
+
+_Theorem:_ projected gradient ascent can obtain an approximate local maximum, close to a true local maximum
+
+- **Non-zero-sum game of adversarial training**
+  - The min-max game is not implementable in practice due to:
+    - discontinuous nature of classification error is not compatible with 1st order optimization
+  - adversarial robustness - surrogate-based approach, use the upper bound to replace classification error
+    - limit1 - **weak attacker** may fail to generate adversarial examples
+    - limit2 - **inefficient defenders** perturbation in AT does not improve any robustness
+    - $$\begin{align*}\min\limits_{\theta\in\Theta}\quad&E\ell(f_\theta(X+\eta^*),Y) \\ \text{s.t.}\quad& \eta^*_j\in\argmax_{\eta:\|\eta\|\leq\epsilon}M_\theta(X+\eta,y)_j,\forall j\in[K]-\{Y\} \\ & j^*\in\argmax_{j\in[K]-\{Y\}}M_\theta(x+\eta^*_j,y)_j\end{align*}$$
+
